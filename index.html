@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="The Obsidian Order — You were chosen. Will you answer?" />
+    <meta name="theme-color" content="#050508" />
+    <title>The Obsidian Order</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Hidden puzzle trigger -->
+    <div class="hidden-21" id="hidden-21" role="button" tabindex="-1" aria-label="A hidden sigil" hidden>
+      <span class="hidden-21-text">21</span>
+    </div>
+
+    <!-- Three.js particle canvas mounts here -->
+    <div id="canvas-container" aria-hidden="true"></div>
+
+    <!-- Vignette overlay -->
+    <div class="vignette" aria-hidden="true"></div>
+
+    <!-- Film grain overlay -->
+    <div class="grain" aria-hidden="true">
+      <svg width="0" height="0">
+        <filter id="grain-filter">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.65"
+            numOctaves="3"
+            stitchTiles="stitch"
+          />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+      </svg>
+    </div>
+
+    <!-- Custom cursor -->
+    <div class="cursor" aria-hidden="true">
+      <div class="cursor__dot"></div>
+      <div class="cursor__ring"></div>
+    </div>
+
+    <!-- Main content -->
+    <div id="app">
+      <section class="entry-section" id="entry">
+        <svg class="sigil" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="sigil-path" cx="100" cy="100" r="90" fill="none" stroke="var(--gold)" stroke-width="1"/>
+          <circle class="sigil-path" cx="100" cy="100" r="82" fill="none" stroke="var(--gold)" stroke-width="0.5"/>
+          <polygon class="sigil-path" points="100,18 28.87,151.96 171.13,151.96" fill="none" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="100" y1="10" x2="100" y2="190" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="10" y1="100" x2="190" y2="100" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="100" y1="10" x2="100" y2="2" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="150" y1="163.4" x2="156.93" y2="170.33" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="50" y1="163.4" x2="43.07" y2="170.33" stroke="var(--gold)" stroke-width="1"/>
+          <circle class="sigil-core" cx="100" cy="100" r="2" fill="var(--gold)" opacity="0"/>
+        </svg>
+        <h1 class="entry-title">THE OBSIDIAN ORDER</h1>
+        <p class="entry-sub">Silence is survival. Presence is proof.</p>
+        <div class="entry-scroll-hint">
+          <span>DESCEND</span>
+          <div class="scroll-line"></div>
+        </div>
+      </section>
+
+      <section class="form-section" id="form">
+        <form id="recruitment-form" novalidate>
+
+          <div class="form-stage" data-stage="1">
+            <span class="stage-index">I</span>
+            <h2 data-split>IDENTIFY YOURSELF</h2>
+            <div class="field">
+              <input type="text" id="name" name="name" placeholder=" " required autocomplete="off">
+              <label for="name">True Name</label>
+            </div>
+            <div class="field">
+              <input type="text" id="alias" name="alias" placeholder=" " required autocomplete="off">
+              <label for="alias">Chosen Alias</label>
+            </div>
+            <div class="field">
+              <input type="number" id="age" name="age" placeholder=" " required min="13" max="120" autocomplete="off">
+              <label for="age">Years in Shadow</label>
+            </div>
+          </div>
+
+          <div class="form-stage" data-stage="2">
+            <span class="stage-index">II</span>
+            <h2 data-split>PROVE YOUR WORTH</h2>
+            <div class="field">
+              <textarea id="why" name="why" rows="3" placeholder=" " required maxlength="500"></textarea>
+              <label for="why">Why do you seek us?</label>
+            </div>
+            <div class="field">
+              <input type="text" id="skill" name="skill" placeholder=" " required autocomplete="off">
+              <label for="skill">Your greatest skill</label>
+            </div>
+          </div>
+
+          <div class="form-stage" data-stage="3">
+            <span class="stage-index">III</span>
+            <h2 data-split>SPEAK THE OATH</h2>
+            <label class="oath-check">
+              <input type="checkbox" name="oath1" required>
+              <span class="oath-box" aria-hidden="true"></span>
+              <span class="oath-text">I accept that silence is survival.</span>
+            </label>
+            <label class="oath-check">
+              <input type="checkbox" name="oath2" required>
+              <span class="oath-box" aria-hidden="true"></span>
+              <span class="oath-text">I will not speak of what I learn here.</span>
+            </label>
+            <label class="oath-check">
+              <input type="checkbox" name="oath3" required>
+              <span class="oath-box" aria-hidden="true"></span>
+              <span class="oath-text">I am prepared to disappear.</span>
+            </label>
+            <div class="form-error" role="alert" aria-live="polite" hidden></div>
+            <button type="submit" class="submit-btn">
+              <span class="submit-label">SUBMIT TO THE ORDER</span>
+              <span class="submit-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+
+        </form>
+
+        <div class="confirmation" id="confirmation" hidden>
+          <svg class="sigil confirmation-sigil" viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="sigil-path" cx="100" cy="100" r="90" fill="none" stroke="var(--gold)" stroke-width="1"/>
+            <circle class="sigil-path" cx="100" cy="100" r="82" fill="none" stroke="var(--gold)" stroke-width="0.5"/>
+            <polygon class="sigil-path" points="100,18 28.87,151.96 171.13,151.96" fill="none" stroke="var(--gold)" stroke-width="1"/>
+            <line class="sigil-path" x1="100" y1="10" x2="100" y2="190" stroke="var(--gold)" stroke-width="1"/>
+            <line class="sigil-path" x1="10" y1="100" x2="190" y2="100" stroke="var(--gold)" stroke-width="1"/>
+            <line class="sigil-path" x1="100" y1="10" x2="100" y2="2" stroke="var(--gold)" stroke-width="1"/>
+            <line class="sigil-path" x1="150" y1="163.4" x2="156.93" y2="170.33" stroke="var(--gold)" stroke-width="1"/>
+            <line class="sigil-path" x1="50" y1="163.4" x2="43.07" y2="170.33" stroke="var(--gold)" stroke-width="1"/>
+            <circle class="sigil-core" cx="100" cy="100" r="2" fill="var(--gold)" opacity="0"/>
+          </svg>
+          <p class="confirmation-text">
+            YOU HAVE BEEN MARKED.<br>
+            WAIT FOR US IN SILENCE.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <div class="ritual-overlay" id="ritual-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="ritual-title">
+      <button class="ritual-close" id="ritual-close" aria-label="Close">×</button>
+      <div class="ritual-content">
+        <svg class="ritual-sigil sigil" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="sigil-path" cx="100" cy="100" r="90" fill="none" stroke="var(--gold)" stroke-width="1"/>
+          <circle class="sigil-path" cx="100" cy="100" r="82" fill="none" stroke="var(--gold)" stroke-width="0.5"/>
+          <polygon class="sigil-path" points="100,18 28.87,151.96 171.13,151.96" fill="none" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="100" y1="10" x2="100" y2="190" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="10" y1="100" x2="190" y2="100" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="100" y1="10" x2="100" y2="2" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="150" y1="163.4" x2="156.93" y2="170.33" stroke="var(--gold)" stroke-width="1"/>
+          <line class="sigil-path" x1="50" y1="163.4" x2="43.07" y2="170.33" stroke="var(--gold)" stroke-width="1"/>
+          <circle class="sigil-core" cx="100" cy="100" r="2" fill="var(--gold)" opacity="0"/>
+        </svg>
+        <h2 class="ritual-title" id="ritual-title">THE TWENTY-FIRST HOUR</h2>
+        <p class="ritual-sub">A is one. Z is twenty-six.</p>
+        <p class="ritual-sub-2">The word below was shifted forward by twenty-one.</p>
+
+        <div class="cipher-display" aria-label="Encoded word: V M O, at positions 22, 13, 15">
+          <span class="cipher-letter" data-index="22">V</span>
+          <span class="cipher-letter" data-index="13">M</span>
+          <span class="cipher-letter" data-index="15">O</span>
+        </div>
+
+        <p class="ritual-key" aria-hidden="true">shift +21</p>
+
+        <form class="ritual-form" id="ritual-form" novalidate>
+          <div class="field ritual-field">
+            <input type="text" id="ritual-answer" placeholder=" " autocomplete="off" spellcheck="false" maxlength="20" required>
+            <label for="ritual-answer">The word</label>
+          </div>
+          <div class="ritual-error" id="ritual-error" role="alert" aria-live="polite" hidden></div>
+          <button type="submit" class="ritual-submit">
+            <span>OFFER</span>
+          </button>
+        </form>
+
+        <div class="ritual-reward" id="ritual-reward" hidden>
+          <p class="reward-text">The Order acknowledges you.</p>
+          <a class="reward-link" id="reward-link" href="REWARD_URL" target="_blank" rel="noopener">
+            <span class="reward-link-label">Enter the sanctum</span>
+            <span class="reward-link-arrow" aria-hidden="true">→</span>
+          </a>
+          <span class="reward-mark">XXI</span>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
