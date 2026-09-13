@@ -663,28 +663,20 @@ p, li, label, input, textarea, select, button {
   pointer-events: auto;
   cursor: none;
   user-select: none;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-
-.hidden-21[hidden] {
-  display: none;
-}
-
-.hidden-21.is-revealed {
-  opacity: 1;
 }
 
 .hidden-21-text {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: clamp(20rem, 55vw, 60rem);
+  font-size: clamp(8rem, 22vw, 26rem);
   color: var(--gold);
   opacity: 0.05;
-  line-height: 0.8;
-  letter-spacing: -0.05em;
+  line-height: 0.9;
+  letter-spacing: 0.05em;
   pointer-events: none;
   transition: opacity 0.8s ease;
+  white-space: nowrap;
+  animation: breathe-21 8s ease-in-out infinite;
 }
 
 .hidden-21:hover .hidden-21-text,
@@ -706,22 +698,19 @@ p, li, label, input, textarea, select, button {
   }
 }
 
-.hidden-21.is-revealed .hidden-21-text {
-  animation: breathe-21 8s ease-in-out infinite;
-}
-
 .hidden-21:hover .hidden-21-text {
   animation-play-state: paused;
 }
 
 @media (max-width: 768px) {
   .hidden-21-text {
-    font-size: clamp(12rem, 90vw, 30rem);
+    font-size: clamp(5rem, 32vw, 12rem);
+    letter-spacing: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hidden-21.is-revealed .hidden-21-text {
+  .hidden-21-text {
     animation: none;
   }
 }

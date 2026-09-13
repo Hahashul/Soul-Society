@@ -1,26 +1,6 @@
 ﻿import gsap from 'gsap';
 
-const REVEAL_KEY = 'obsidian-21-revealed';
 const SOLVED_KEY = 'obsidian-21-solved';
-
-export const revealTwentyOne = () => {
-  const hidden21 = document.getElementById('hidden-21');
-  if (!hidden21) return;
-
-  localStorage.setItem(REVEAL_KEY, 'true');
-  hidden21.hidden = false;
-  hidden21.tabIndex = 0;
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (prefersReducedMotion) {
-    hidden21.classList.add('is-revealed');
-  } else {
-    setTimeout(() => {
-      hidden21.classList.add('is-revealed');
-    }, 50);
-  }
-};
 
 const initPuzzle = () => {
   const hidden21 = document.getElementById('hidden-21');
@@ -39,18 +19,11 @@ const initPuzzle = () => {
   if (!hidden21 || !overlay) return;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isRevealed = localStorage.getItem(REVEAL_KEY) === 'true';
   const isSolved = localStorage.getItem(SOLVED_KEY) === 'true';
 
-  // Restore state on page load
-  if (isRevealed) {
-    hidden21.hidden = false;
-    hidden21.tabIndex = 0;
-    hidden21.classList.add('is-revealed');
-    
-    if (isSolved) {
-      hidden21.classList.add('solved');
-    }
+  // Restore solved state on page load
+  if (isSolved) {
+    hidden21.classList.add('solved');
   }
 
   const lockScroll = () => {
@@ -98,7 +71,7 @@ const initPuzzle = () => {
     hidden21.focus();
   };
 
-  // Discovery: click on the "21"
+  // Discovery: click on the XXI
   hidden21.addEventListener('click', openOverlay);
   hidden21.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {

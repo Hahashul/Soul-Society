@@ -1,5 +1,4 @@
-﻿import { revealTwentyOne } from './puzzle.js';
-import gsap from 'gsap';
+﻿import gsap from 'gsap';
 
 export const initForm = () => {
   const form = document.getElementById('recruitment-form');
@@ -139,9 +138,6 @@ export const initForm = () => {
             if (window.__lenis) {
               window.__lenis.scrollTo('#confirmation', { duration: 1.5 });
             }
-
-            // Reveal the "21" after confirmation settles
-            gsap.delayedCall(2, revealTwentyOne);
 
             // If user already solved the puzzle, show the mark
             if (localStorage.getItem('obsidian-21-solved') === 'true') {
